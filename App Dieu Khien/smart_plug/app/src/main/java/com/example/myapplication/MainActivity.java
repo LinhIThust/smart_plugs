@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static String PATH;
     FirebaseDatabase database;
     DatabaseReference myRef;
+
     DeviceStatusAdapter deviceStatusAdapter;
     RecyclerView recyclerView ;
     ImageView ivEdit, ivAdd, ivLogout;

@@ -31,17 +31,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/ic_launcher_round" />
 
-        <TextView
-            android:id="@+id/tvDevice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="TextView"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/ivStatus"
-            app:layout_constraintStart_toStartOf="@+id/ivStatus"
-            app:layout_constraintTop_toBottomOf="@+id/ivStatus" />
-
         <EditText
             android:id="@+id/etNameDevice"
             android:visibility="gone"
@@ -80,26 +69,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvTime"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Hoạt động : 17h30,26/04/2020"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="@+id/tvStatus"
-            app:layout_constraintStart_toStartOf="@+id/tvStatus"
-            app:layout_constraintTop_toBottomOf="@+id/tvStatus" />
-
-        <ImageView
-            android:id="@+id/ivClock"
+            android:id="@+id/tvDevice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="4dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTime"
-            app:srcCompat="@drawable/clock_icon" />
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvStatus"
+            app:layout_constraintTop_toBottomOf="@+id/tvStatus" />
 
     </androidx.constraintlayout.widget.ConstraintLayout><![CDATA[
 
