@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,20 +53,44 @@ public class DeviceStatusAdapter extends RecyclerView.Adapter<DeviceStatusAdapte
 
     public class DeviceStatusHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView tvDevice,tvStatus, tvTime;
+        public EditText edEditdevice;
         public ImageView ivStatus;
         public Device dv;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(LIST_DEVICE).child(PATH);
         public DeviceStatusHolder(View itemView) {
             super(itemView);
             tvDevice =itemView.findViewById(R.id.tvDevice);
             tvStatus =itemView.findViewById(R.id.tvStatus);
-//            tvTime=itemView.findViewById(R.id.tvTime);
             ivStatus =itemView.findViewById(R.id.ivStatus);
+            edEditdevice =itemView.findViewById(R.id.edEditDevice);
+            edEditdevice.setVisibility(View.INVISIBLE);
+            tvDevice.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    tvDevice.setVisibility(View.INVISIBLE);
+                    edEditdevice.setVisibility(View.VISIBLE);
+                    edEditdevice.setText(tvDevice.getText().toString());
+                    return true;
+                }
+            });
+            edEditdevice.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        dv.setNameDevice(edEditdevice.getText().toString());
+                        myRef.child(dv.getIdDevice()).setValue(new Device(dv.getStatus(), dv.getIdDevice(), dv.getNameDevice()));
+                        tvDevice.setVisibility(View.VISIBLE);
+                        edEditdevice.setVisibility(View.INVISIBLE);
+                    }
+                }
+            });
         }
         public void setData(final Device data){
             dv = data;
             tvDevice.setText(data.getNameDevice());
             chooseImage(data.getStatus());
-            tvDevice.setOnClickListener(this);
+//            tvDevice.setOnClickListener(this);
             ivStatus.setOnClickListener(this);
         }
         @SuppressLint("NewApi")
@@ -87,14 +112,7 @@ public class DeviceStatusAdapter extends RecyclerView.Adapter<DeviceStatusAdapte
 
         @Override
         public void onClick(View v) {
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference(LIST_DEVICE).child(PATH);
             switch (v.getId()){
-                case R.id.tvDevice:
-                    dv.setNameDevice("Quạt");
-                    Log.d("zzzA", "onClick: ");
-                    myRef.child(dv.getIdDevice()).setValue(new Device(dv.getStatus(), dv.getIdDevice(), dv.getNameDevice()));
-                    break;
                 case R.id.ivStatus:
                     dv.setStatus(1-dv.getStatus());
                     chooseImage(dv.getStatus());
